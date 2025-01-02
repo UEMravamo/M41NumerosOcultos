@@ -62,3 +62,35 @@ abcdefghij"""
     expected = """Case #1: 8853086421"""
     result = run_io_fun(input_data, main)
     assert result == expected
+
+
+def test_case_6():
+    input_data = """1
+abcdefg"""
+    expected = """Case #1: 676950"""
+    result = run_io_fun(input_data, main)
+    assert result == expected
+
+
+def test_case_7():
+    input_data = """2
+kkklll
+abcxyzabc
+"""
+    expected = """Case #1: 0
+Case #2: 7872289"""
+    result = run_io_fun(input_data, main)
+    assert result == expected
+
+
+def test_case_8():
+    input_data = """3
+abbaabba
+xyzxyzxyz
+ppppqqqqrrr
+"""
+    expected = """Case #1: 0
+Case #2: 7570
+Case #3: 88534"""
+    result = run_io_fun(input_data, main)
+    assert result == expected
