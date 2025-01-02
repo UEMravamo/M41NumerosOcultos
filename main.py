@@ -26,5 +26,19 @@ def assign_digits(word, digits_numbers, is_min):
     return assigned_digits
 
 
+def find_smallest_and_biggest_numbers(word, digits_numbers, base):
+    smallest_assigned = assign_digits(word, digits_numbers, True)
+    smallest_decimal = n_base_decimal_base(smallest_assigned, base)
+
+    biggest_assigned = assign_digits(word, digits_numbers, False)
+    biggest_decimal = n_base_decimal_base(biggest_assigned, base)
+
+    return smallest_decimal, biggest_decimal
+
+
+def get_base(s):
+    return len(set(s))
+
+
 if __name__ == '__main__':
     print('Hello World')
