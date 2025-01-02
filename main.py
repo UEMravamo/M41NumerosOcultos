@@ -1,7 +1,2 @@
-"""
-Realizado por:
-(Grupo Laura)
-Mohammed Azzouz
-Geronimo Basso Sosa
-Jorge Javier Castilla Coello
-"""
+if __name__ == '__main__':
+    print('Hello World')
