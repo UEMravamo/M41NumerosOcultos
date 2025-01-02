@@ -32,3 +32,33 @@ abc
 Case #2: 10"""
     result = run_io_fun(input_data, main)
     assert result == expected
+
+
+def test_case_3():
+    input_data = """2
+banana
+loolo
+"""
+    expected = """Case #1: 274
+Case #2: 0"""
+    result = run_io_fun(input_data, main)
+    assert result == expected
+
+
+def test_case_4():
+    input_data = """2
+abcabc
+xyyxz
+"""
+    expected = """Case #1: 280
+Case #2: 118"""
+    result = run_io_fun(input_data, main)
+    assert result == expected
+
+
+def test_case_5():
+    input_data = """1
+abcdefghij"""
+    expected = """Case #1: 8853086421"""
+    result = run_io_fun(input_data, main)
+    assert result == expected
