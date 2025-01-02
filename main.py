@@ -40,5 +40,23 @@ def get_base(s):
     return len(set(s))
 
 
+def main():
+    t = int(input())
+    input_cases = []
+    for i in range(t):
+        input_cases.append(input())
+
+    for case_number, word in enumerate(input_cases):
+        base = get_base(word)
+        digits = list(range(base))
+
+        smallest_number_decimal, biggest_number_decimal \
+            = find_smallest_and_biggest_numbers(word, digits, base)
+        print("Case #{}: {}".format(
+            case_number + 1,
+            biggest_number_decimal - smallest_number_decimal)
+        )
+
+
 if __name__ == '__main__':
     print('Hello World')
