@@ -1,3 +1,6 @@
+from collections import deque
+
+
 def n_base_decimal_base(numbers, base):
     value_converted = 0
     for i, number in enumerate(numbers):
@@ -6,23 +9,25 @@ def n_base_decimal_base(numbers, base):
 
 
 def assign_digits(word, digits_numbers, is_min):
-    digits_copy = digits_numbers[:]
+    digits_deque = deque(digits_numbers)
 
     if is_min:
-        zero_digit = digits_copy.pop(0)
-        digits_copy.insert(1, zero_digit)
+        zero_digit = digits_deque.popleft()
+        digits_list = list(digits_deque)
+        digits_list.insert(1, zero_digit)
+        digits_deque = deque(digits_list)
     else:
-        digits_copy = digits_copy[::-1]
+        digits_deque.reverse()
 
     letter_dict = {}
     seen = set()
-    for character in word:
-        if character not in seen:
-            letter_dict[character] = digits_copy.pop(0)
-            seen.add(character)
+
+    for ch in word:
+        if ch not in seen:
+            letter_dict[ch] = digits_deque.popleft()
+            seen.add(ch)
 
     assigned_digits = [letter_dict[ch] for ch in word]
-
     return assigned_digits
 
 
@@ -48,10 +53,10 @@ def main():
 
     for case_number, word in enumerate(input_cases):
         base = get_base(word)
-        digits = list(range(base))
+        base_digits_array = list(range(base))
 
         smallest_number_decimal, biggest_number_decimal \
-            = find_smallest_and_biggest_numbers(word, digits, base)
+            = find_smallest_and_biggest_numbers(word, base_digits_array, base)
         print("Case #{}: {}".format(
             case_number + 1,
             biggest_number_decimal - smallest_number_decimal)
