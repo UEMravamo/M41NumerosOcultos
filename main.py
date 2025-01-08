@@ -1,4 +1,6 @@
 from collections import deque
+from pyspark import SparkConf, SparkContext
+import sys
 
 
 def n_base_decimal_base(numbers, base):
@@ -45,23 +47,36 @@ def get_base(s):
     return len(set(s))
 
 
-def main():
-    t = int(input())
-    input_cases = []
-    for i in range(t):
-        input_cases.append(input())
-
-    for case_number, word in enumerate(input_cases):
-        base = get_base(word)
-        base_digits_array = list(range(base))
-
-        smallest_number_decimal, biggest_number_decimal \
-            = find_smallest_and_biggest_numbers(word, base_digits_array, base)
-        print("Case #{}: {}".format(
-            case_number + 1,
-            biggest_number_decimal - smallest_number_decimal)
+def process_case(x):
+    case_index, word = x
+    base = get_base(word)
+    base_digits_array = list(range(base))
+    smallest_number_decimal, biggest_number_decimal \
+        = find_smallest_and_biggest_numbers(
+            word, base_digits_array, base
         )
+    return case_index, biggest_number_decimal - smallest_number_decimal
+
+
+def main():
+    conf = SparkConf().setAppName("M41").setMaster("local[*]")
+    sc = SparkContext(conf=conf)
+    data = sys.stdin.read().strip().split('\n')
+
+    t = int(data[0])
+    input_cases = data[1:]
+    rdd = sc.parallelize(input_cases, t)
+
+    indexed_rdd = rdd.zipWithIndex().map(lambda x: (x[1], x[0]))
+    results = indexed_rdd.map(process_case).collect()
+    results.sort(key=lambda x: x[0])
+
+    for (case_index, val) in results:
+        print(f"Case #{case_index + 1}: {val}")
+
+    sc.stop()
 
 
 if __name__ == '__main__':
     main()
+
