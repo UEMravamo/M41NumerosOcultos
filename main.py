@@ -53,8 +53,8 @@ def process_case(x):
     base_digits_array = list(range(base))
     smallest_number_decimal, biggest_number_decimal \
         = find_smallest_and_biggest_numbers(
-            word, base_digits_array, base
-        )
+        word, base_digits_array, base
+    )
     return case_index, biggest_number_decimal - smallest_number_decimal
 
 
@@ -72,11 +72,10 @@ def main():
     results.sort(key=lambda x: x[0])
 
     for (case_index, val) in results:
-        print(f"Case #{case_index + 1}: {val}")
+        print("Case #{}: {}".format(case_index + 1, val))
 
     sc.stop()
 
 
 if __name__ == '__main__':
     main()
-
